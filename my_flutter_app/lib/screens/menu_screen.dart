@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/product.dart';  
 import '../data/mock_products.dart';
 import '../widgets/product_card.dart';
 import '../widgets/category_tabs.dart';

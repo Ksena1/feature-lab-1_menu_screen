@@ -14,39 +14,72 @@ class _ProductCardState extends State<ProductCard> {
   bool isInCart = false;
   int quantity = 1;
 
+  Widget _buildPlaceholderIcon() {
+    return Center(
+      child: Icon(
+        _getProductIcon(),
+        size: 40,
+        color: Colors.grey[500],
+      ),
+    );
+  }
+
+  IconData _getProductIcon() {
+    switch (widget.product.category) {
+      case 'Кофе':
+        return Icons.coffee;
+      case 'Десерты':
+        return Icons.cake;
+      case 'Выпечка':
+        return Icons.bakery_dining;
+      case 'Завтраки':
+        return Icons.breakfast_dining;
+      default:
+        return Icons.local_cafe;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(8.0),
       child: Padding(
-        // ТОЧНЫЕ ОТСТУПЫ ПО ТЗ: vertical 16px, horizontal 32px
         padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // КАРТИНКА: высота 100px, ширина автоматически
             Container(
-              height: 100.0, // ТОЧНО 100px ПО ТЗ
+              height: 100.0,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: widget.product.imageUrl != null
-                  ? Image.network(
-                      widget.product.imageUrl!,
-                      fit: BoxFit.contain, // Не обрезается, вся видна
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(
+                        widget.product.imageUrl!,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return _buildPlaceholderIcon();
+                        },
+                      ),
                     )
-                  : Icon(
-                      _getProductIcon(),
-                      size: 40,
-                      color: Colors.grey[500],
-                    ),
+                  : _buildPlaceholderIcon(),
             ),
-            // ОТСТУП 8px МЕЖДУ КОМПОНЕНТАМИ
             const SizedBox(height: 8.0),
-            
-            // НАЗВАНИЕ ТОВАРА
             Text(
               widget.product.name,
               style: const TextStyle(
@@ -55,8 +88,6 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ),
             const SizedBox(height: 8.0),
-            
-            // ЦЕНА
             Text(
               '${widget.product.price} ₽',
               style: const TextStyle(
@@ -67,7 +98,6 @@ class _ProductCardState extends State<ProductCard> {
             ),
             const SizedBox(height: 8.0),
             
-            // КНОПКА / ПАНЕЛЬ КОЛИЧЕСТВА
             if (!isInCart)
               SizedBox(
                 width: double.infinity,
@@ -102,7 +132,7 @@ class _ProductCardState extends State<ProductCard> {
                           if (quantity > 1) {
                             quantity--;
                           } else {
-                            isInCart = false; // Убираем из корзины при 1
+                            isInCart = false;
                           }
                         });
                       },
@@ -118,7 +148,7 @@ class _ProductCardState extends State<ProductCard> {
                       icon: const Icon(Icons.add, size: 20),
                       onPressed: () {
                         setState(() {
-                          if (quantity < 10) { // ВЕРХНИЙ ЛИМИТ 10
+                          if (quantity < 10) {
                             quantity++;
                           }
                         });
@@ -131,20 +161,5 @@ class _ProductCardState extends State<ProductCard> {
         ),
       ),
     );
-  }
-
-  IconData _getProductIcon() {
-    switch (widget.product.category) {
-      case 'Кофе':
-        return Icons.coffee;
-      case 'Десерты':
-        return Icons.cake;
-      case 'Выпечка':
-        return Icons.bakery_dining;
-      case 'Завтраки':
-        return Icons.breakfast_dining;
-      default:
-        return Icons.local_cafe;
-    }
   }
 }

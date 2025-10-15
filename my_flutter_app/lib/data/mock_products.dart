@@ -73,7 +73,6 @@ final List<Product> mockProducts = [
   ),
 ];
 
-// Получаем уникальные категории
 List<String> get categories {
   return mockProducts.map((product) => product.category).toSet().toList();
 }
