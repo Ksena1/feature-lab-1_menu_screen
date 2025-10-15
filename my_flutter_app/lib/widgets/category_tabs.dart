@@ -1,56 +1,44 @@
 import 'package:flutter/material.dart';
 
-class CategoryTabs extends StatefulWidget {
-  final List<String> categories;
+class CategoryTabs extends StatelessWidget {
+  final String selectedCategory;
   final Function(String) onCategorySelected;
 
   const CategoryTabs({
     Key? key,
-    required this.categories,
+    required this.selectedCategory,
     required this.onCategorySelected,
   }) : super(key: key);
 
   @override
-  State<CategoryTabs> createState() => _CategoryTabsState();
-}
-
-class _CategoryTabsState extends State<CategoryTabs> {
-  String selectedCategory = 'Все';
-  final ScrollController _scrollController = ScrollController();
-
-  @override
   Widget build(BuildContext context) {
+    final categories = ['Все', 'Кофе', 'Десерты', 'Выпечка', 'Завтраки', 'Напитки'];
+    
     return Container(
       height: 50,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.grey[300]!)),
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListView.builder(
-        controller: _scrollController,
         scrollDirection: Axis.horizontal,
-        itemCount: widget.categories.length,
+        itemCount: categories.length,
         itemBuilder: (context, index) {
-          final category = widget.categories[index];
-          final isSelected = selectedCategory == category;
+          final category = categories[index];
+          final isSelected = category == selectedCategory;
           
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: isSelected ? Colors.brown : Colors.grey[200],
-                foregroundColor: isSelected ? Colors.white : Colors.black87,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-              onPressed: () {
-                setState(() {
-                  selectedCategory = category;
-                });
-                widget.onCategorySelected(category);
+            padding: const EdgeInsets.only(right: 8.0),
+            child: FilterChip(
+              label: Text(category),
+              selected: isSelected,
+              onSelected: (selected) {
+                onCategorySelected(category);
               },
-              child: Text(category),
+              backgroundColor: isSelected ? Colors.brown : Colors.grey[200],
+              labelStyle: TextStyle(
+                color: isSelected ? Colors.white : Colors.black87,
+                fontWeight: FontWeight.w500,
+              ),
+              selectedColor: Colors.brown,
+              checkmarkColor: Colors.white,
             ),
           );
         },

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models/product.dart';  
-import '../data/mock_products.dart';
-import '../widgets/product_card.dart';
+import 'package:provider/provider.dart';
 import '../widgets/category_tabs.dart';
+import '../widgets/product_card.dart';
+import '../data/mock_products.dart';
+import '../providers/cart_provider.dart';
+import 'cart_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -14,48 +16,76 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> {
   String selectedCategory = 'Все';
 
-  // Получаем уникальные категории + добавляем "Все"
-  List<String> get categories {
-    final uniqueCategories = mockProducts.map((product) => product.category).toSet().toList();
-    return ['Все', ...uniqueCategories];
-  }
-
-  // Фильтруем товары по выбранной категории
-  List<Product> get filteredProducts {
-    if (selectedCategory == 'Все') {
-      return mockProducts;
-    }
-    return mockProducts.where((product) => product.category == selectedCategory).toList();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+    
+    final filteredProducts = selectedCategory == 'Все'
+        ? mockProducts
+        : mockProducts.where((product) => product.category == selectedCategory).toList();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Меню кофейни'),
-        backgroundColor: Colors.brown,
-        foregroundColor: Colors.white,
+        actions: [
+          Stack(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.shopping_cart),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CartScreen()),
+                  );
+                },
+              ),
+              if (cartProvider.totalItems > 0)
+                Positioned(
+                  right: 8,
+                  top: 8,
+                  child: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 16,
+                      minHeight: 16,
+                    ),
+                    child: Text(
+                      '${cartProvider.totalItems}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ],
       ),
       body: Column(
         children: [
-          // ВЕРХНЯЯ СТРОКА КАТЕГОРИЙ С ПРОКРУТКОЙ
           CategoryTabs(
-            categories: categories,
+            selectedCategory: selectedCategory,
             onCategorySelected: (category) {
               setState(() {
                 selectedCategory = category;
               });
             },
           ),
-          // СЕТКА ТОВАРОВ В 2 КОЛОНКИ
           Expanded(
             child: GridView.builder(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // ДВЕ КОЛОНКИ ПО ТЗ
-                crossAxisSpacing: 16.0,
-                mainAxisSpacing: 16.0,
-                childAspectRatio: 0.75,
+                crossAxisCount: 2,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: 0.8,
               ),
               itemCount: filteredProducts.length,
               itemBuilder: (context, index) {
