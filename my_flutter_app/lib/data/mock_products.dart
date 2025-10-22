@@ -1,4 +1,4 @@
-import '../models/product.dart';  
+import '../models/product.dart';
 
 final List<Product> mockProducts = [
   Product(
@@ -70,6 +70,34 @@ final List<Product> mockProducts = [
     price: 190.0,
     imageUrl: 'assets/images/smoothie.jpg',
     category: 'Напитки',
+  ),
+  Product(
+    id: '11',
+    name: 'Чай Эрл Грей',
+    price: 150.0,
+    imageUrl: 'assets/images/earl_grey.jpg',
+    category: 'Чай',
+  ),
+  Product(
+    id: '12',
+    name: 'Зеленый чай',
+    price: 140.0,
+    imageUrl: 'assets/images/green_tea.jpg',
+    category: 'Чай',
+  ),
+  Product(
+    id: '13',
+    name: 'Чай с мятой',
+    price: 160.0,
+    imageUrl: 'assets/images/mint_tea.jpg',
+    category: 'Чай',
+  ),
+  Product(
+    id: '14',
+    name: 'Фруктовый чай',
+    price: 170.0,
+    imageUrl: 'assets/images/fruit_tea.jpg',
+    category: 'Чай',
   ),
 ];
 

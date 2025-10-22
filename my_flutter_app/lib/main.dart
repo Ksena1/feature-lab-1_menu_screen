@@ -15,10 +15,22 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => CartProvider(),
       child: MaterialApp(
-        title: 'Кофейня',
+        title: 'Кофейня "Уютная"',
         theme: ThemeData(
-          primarySwatch: Colors.brown,
-          fontFamily: 'Roboto',
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF6F4E37),
+            primary: const Color(0xFF6F4E37),
+            secondary: const Color(0xFFA67B5B),
+            surface: const Color(0xFFFAF8F5),
+            background: const Color(0xFFFAF8F5),
+          ),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0xFF6F4E37),
+            foregroundColor: Colors.white,
+            elevation: 2,
+          ),
+          // УБИРАЕМ cardTheme полностью - он не обязателен
+          useMaterial3: true,
         ),
         home: const MenuScreen(),
         debugShowCheckedModeBanner: false,

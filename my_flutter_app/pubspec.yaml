@@ -23,13 +23,17 @@ flutter:
   uses-material-design: true
   
   assets:
-    - assets/images/cappuccino.jpg
-    - assets/images/latte.jpg
-    - assets/images/espresso.jpg
-    - assets/images/americano.jpg
-    - assets/images/raf_coffee.jpg
-    - assets/images/cheesecake.jpg
-    - assets/images/tiramisu.jpg
-    - assets/images/croissant.jpg
-    - assets/images/sandwich.jpg
-    - assets/images/smoothie.jpg
+  - assets/images/cappuccino.jpg
+  - assets/images/latte.jpg
+  - assets/images/espresso.jpg
+  - assets/images/americano.jpg
+  - assets/images/raf_coffee.jpg
+  - assets/images/cheesecake.jpg
+  - assets/images/tiramisu.jpg
+  - assets/images/croissant.jpg
+  - assets/images/sandwich.jpg
+  - assets/images/smoothie.jpg
+  - assets/images/earl_grey.jpg
+  - assets/images/green_tea.jpg
+  - assets/images/mint_tea.jpg
+  - assets/images/fruit_tea.jpg

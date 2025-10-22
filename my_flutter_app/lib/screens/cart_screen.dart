@@ -59,18 +59,31 @@ class CartScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: cartProvider.cart.items.length,
+                    itemCount: cartProvider.items.length,
                     itemBuilder: (ctx, index) {
-                      final item = cartProvider.cart.items[index];
+                      final item = cartProvider.items[index];
                       return Card(
                         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                         child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.grey[100],
-                            child: Icon(
-                              _getCategoryIcon(item.category),
-                              color: _getCategoryColor(item.category),
+                          leading: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                              borderRadius: BorderRadius.circular(8),
                             ),
+                            child: item.imageUrl != null
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.asset(
+                                      item.imageUrl!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : Icon(
+                                    _getCategoryIcon(item.category),
+                                    color: _getCategoryColor(item.category),
+                                  ),
                           ),
                           title: Text(item.name),
                           subtitle: Text('${item.price} ₽ × ${item.quantity}'),
@@ -136,7 +149,6 @@ class CartScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                         ),
                         onPressed: () {
-                          // Действие при оформлении заказа
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Заказ оформлен!'),
