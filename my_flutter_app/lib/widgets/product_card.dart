@@ -45,7 +45,9 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
-    final quantity = cart.getProductQuantity(widget.product.id);
+    
+    // FIX: toString() для int -> String
+    final quantity = cart.getProductQuantity(widget.product.id.toString());
     final isInCart = quantity > 0;
 
     return Card(
@@ -59,6 +61,7 @@ class _ProductCardState extends State<ProductCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // КАРТИНКА
             Container(
               height: 100.0,
               width: double.infinity,
@@ -83,6 +86,7 @@ class _ProductCardState extends State<ProductCard> {
             ),
             const SizedBox(height: 8.0),
             
+            // НАЗВАНИЕ
             Text(
               widget.product.name,
               style: const TextStyle(
@@ -95,6 +99,7 @@ class _ProductCardState extends State<ProductCard> {
             ),
             const SizedBox(height: 8.0),
             
+            // ЦЕНА
             Text(
               '${widget.product.price} ₽',
               style: const TextStyle(
@@ -105,6 +110,7 @@ class _ProductCardState extends State<ProductCard> {
             ),
             const SizedBox(height: 8.0),
             
+            // КНОПКА / ПАНЕЛЬ КОЛИЧЕСТВА
             if (!isInCart)
               SizedBox(
                 width: double.infinity,
@@ -147,9 +153,11 @@ class _ProductCardState extends State<ProductCard> {
                       ),
                       onPressed: () {
                         if (quantity > 1) {
-                          cart.updateQuantity(widget.product.id, quantity - 1);
+                          // FIX: toString() для int -> String
+                          cart.updateQuantity(widget.product.id.toString(), quantity - 1);
                         } else {
-                          cart.removeFromCart(widget.product.id);
+                          // FIX: toString() для int -> String
+                          cart.removeFromCart(widget.product.id.toString());
                         }
                       },
                     ),
@@ -169,7 +177,8 @@ class _ProductCardState extends State<ProductCard> {
                       ),
                       onPressed: () {
                         if (quantity < 10) {
-                          cart.updateQuantity(widget.product.id, quantity + 1);
+                          // FIX: toString() для int -> String
+                          cart.updateQuantity(widget.product.id.toString(), quantity + 1);
                         }
                       },
                     ),
