@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/menu_screen.dart';
 import 'providers/cart_provider.dart';
+import 'data/database/data_sources/database_helper.dart';
+import 'data/database/data_sources/network_products_data_source.dart';
+import 'data/database/data_sources/savable_products_data_source.dart';
+import 'data/database/repositories/products_repository.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,8 +16,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => CartProvider(),
+    return MultiProvider(
+      providers: [
+        // База данных и её зависимости
+        Provider<DatabaseHelper>(create: (_) => DatabaseHelper.instance),
+        Provider<NetworkProductsDataSource>(create: (_) => NetworkProductsDataSource()),
+        Provider<SavableProductsDataSource>(
+          create: (context) => SavableProductsDataSource(
+            databaseHelper: context.read<DatabaseHelper>(),
+          ),
+        ),
+        Provider<ProductsRepository>(
+          create: (context) => ProductsRepository(
+            networkDataSource: context.read<NetworkProductsDataSource>(),
+            dbDataSource: context.read<SavableProductsDataSource>(),
+          ),
+        ),
+        
+        // CartProvider (ваш основной провайдер)
+        ChangeNotifierProvider(
+          create: (context) => CartProvider(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Кофейня "Уютная"',
         theme: ThemeData(
@@ -29,7 +53,6 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
             elevation: 2,
           ),
-          // УБИРАЕМ cardTheme полностью - он не обязателен
           useMaterial3: true,
         ),
         home: const MenuScreen(),

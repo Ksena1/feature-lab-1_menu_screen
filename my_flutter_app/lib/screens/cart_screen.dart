@@ -149,6 +149,8 @@ class CartScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                         ),
                         onPressed: () {
+                          print('🎯 ORDER: ${cartProvider.totalItems} items, ${cartProvider.totalPrice} ₽');
+                          
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Заказ оформлен!'),
