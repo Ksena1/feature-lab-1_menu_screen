@@ -4,6 +4,7 @@ final List<Product> mockProducts = [
   Product(
     id: '1',
     name: 'Капучино',
+    description: 'Классический кофе с молочной пенкой',
     price: 180.0,
     imageUrl: 'assets/images/cappuccino.jpg',
     category: 'Кофе',
@@ -11,6 +12,7 @@ final List<Product> mockProducts = [
   Product(
     id: '2',
     name: 'Латте',
+    description: 'Нежный кофе с большим количеством молока',
     price: 190.0,
     imageUrl: 'assets/images/latte.jpg',
     category: 'Кофе',
@@ -18,6 +20,7 @@ final List<Product> mockProducts = [
   Product(
     id: '3',
     name: 'Эспрессо',
+    description: 'Крепкий и ароматный черный кофе',
     price: 120.0,
     imageUrl: 'assets/images/espresso.jpg',
     category: 'Кофе',
@@ -25,6 +28,7 @@ final List<Product> mockProducts = [
   Product(
     id: '4',
     name: 'Американо',
+    description: 'Эспрессо с добавлением горячей воды',
     price: 140.0,
     imageUrl: 'assets/images/americano.jpg',
     category: 'Кофе',
@@ -32,6 +36,7 @@ final List<Product> mockProducts = [
   Product(
     id: '5',
     name: 'Раф кофе',
+    description: 'Кофе со сливками и ванильным сиропом',
     price: 210.0,
     imageUrl: 'assets/images/raf_coffee.jpg',
     category: 'Кофе',
@@ -39,6 +44,7 @@ final List<Product> mockProducts = [
   Product(
     id: '6',
     name: 'Чизкейк Нью-Йорк',
+    description: 'Нежный чизкейк с ягодным соусом',
     price: 220.0,
     imageUrl: 'assets/images/cheesecake.jpg',
     category: 'Десерты',
@@ -46,6 +52,7 @@ final List<Product> mockProducts = [
   Product(
     id: '7',
     name: 'Тирамису',
+    description: 'Итальянский десерт с кофе и маскарпоне',
     price: 240.0,
     imageUrl: 'assets/images/tiramisu.jpg',
     category: 'Десерты',
@@ -53,6 +60,7 @@ final List<Product> mockProducts = [
   Product(
     id: '8',
     name: 'Круассан',
+    description: 'Французская слоеная выпечка',
     price: 90.0,
     imageUrl: 'assets/images/croissant.jpg',
     category: 'Выпечка',
@@ -60,6 +68,7 @@ final List<Product> mockProducts = [
   Product(
     id: '9',
     name: 'Сэндвич с ветчиной',
+    description: 'Свежий сэндвич с ветчиной и сыром',
     price: 160.0,
     imageUrl: 'assets/images/sandwich.jpg',
     category: 'Завтраки',
@@ -67,6 +76,7 @@ final List<Product> mockProducts = [
   Product(
     id: '10',
     name: 'Смузи ягодный',
+    description: 'Освежающий ягодный смузи',
     price: 190.0,
     imageUrl: 'assets/images/smoothie.jpg',
     category: 'Напитки',
@@ -74,6 +84,7 @@ final List<Product> mockProducts = [
   Product(
     id: '11',
     name: 'Чай Эрл Грей',
+    description: 'Ароматный черный чай с бергамотом',
     price: 150.0,
     imageUrl: 'assets/images/earl_grey.jpg',
     category: 'Чай',
@@ -81,6 +92,7 @@ final List<Product> mockProducts = [
   Product(
     id: '12',
     name: 'Зеленый чай',
+    description: 'Традиционный зеленый чай',
     price: 140.0,
     imageUrl: 'assets/images/green_tea.jpg',
     category: 'Чай',
@@ -88,6 +100,7 @@ final List<Product> mockProducts = [
   Product(
     id: '13',
     name: 'Чай с мятой',
+    description: 'Освежающий чай с мятой',
     price: 160.0,
     imageUrl: 'assets/images/mint_tea.jpg',
     category: 'Чай',
@@ -95,6 +108,7 @@ final List<Product> mockProducts = [
   Product(
     id: '14',
     name: 'Фруктовый чай',
+    description: 'Ароматный чай с фруктовыми нотами',
     price: 170.0,
     imageUrl: 'assets/images/fruit_tea.jpg',
     category: 'Чай',
