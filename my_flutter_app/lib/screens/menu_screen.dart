@@ -6,6 +6,7 @@ import '../data/mock_products.dart';
 import '../models/product.dart';
 import '../providers/cart_provider.dart';
 import 'cart_screen.dart';
+import '../features/map/presentation/screens/coffee_shop_list_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
