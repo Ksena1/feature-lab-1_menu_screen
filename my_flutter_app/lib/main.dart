@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'screens/menu_screen.dart';
 import 'providers/cart_provider.dart';
 import 'features/map/providers/address_provider.dart';
-import 'features/map/data/database/app_database.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,10 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => CartProvider()),
-        // ДОБАВЬТЕ ПРОВАЙДЕР АДРЕСА:
         ChangeNotifierProvider(create: (context) => AddressProvider()),
-        // ДОБАВЬТЕ ПРОВАЙДЕР БАЗЫ ДАННЫХ:
-        Provider(create: (context) => AppDatabase()),
       ],
       child: MaterialApp(
         title: 'Кофейня "Уютная"',
