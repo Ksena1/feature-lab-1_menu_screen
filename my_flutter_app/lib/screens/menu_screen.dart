@@ -119,6 +119,20 @@ class _MenuScreenState extends State<MenuScreen> {
     final totalItems = cartProvider.totalItems;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Меню'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.map),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CoffeeShopListScreen()),
+              );
+            },
+          ),
+        ],
+      ),
       body: Stack(
         children: [
           Column(
@@ -166,7 +180,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                         const SizedBox(height: 16.0),
                       ],
-                    );
+                    ),
                   }).toList(),
                 ),
               ),
