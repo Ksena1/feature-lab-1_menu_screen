@@ -4,6 +4,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'dart:io';
 
+// ДОБАВЬТЕ ЭТОТ ИМПОРТ:
+import 'tables/coffee_shops_table.dart';
+
 part 'app_database.g.dart';
 
 @DriftDatabase(tables: [CoffeeShops])
