@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
+import '../features/map/presentation/widgets/address_selection_button.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -122,41 +123,50 @@ class CartScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      // ДОБАВЬТЕ КНОПКУ ВЫБОРА АДРЕСА ЗДЕСЬ:
+                      const AddressSelectionButton(),
+                      const SizedBox(height: 16),
+                      
+                      // Существующая строка с итогом и кнопкой заказа:
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            '${cartProvider.totalItems} товара',
-                            style: const TextStyle(fontSize: 16),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${cartProvider.totalItems} товара',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                'Итого: ${cartProvider.totalPrice} ₽',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            'Итого: ${cartProvider.totalPrice} ₽',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green,
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.brown,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                             ),
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Заказ оформлен!'),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+                            },
+                            child: const Text('Оформить заказ'),
                           ),
                         ],
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.brown,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                        ),
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Заказ оформлен!'),
-                              backgroundColor: Colors.green,
-                            ),
-                          );
-                        },
-                        child: const Text('Оформить заказ'),
                       ),
                     ],
                   ),

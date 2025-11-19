@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/menu_screen.dart';
 import 'providers/cart_provider.dart';
+import 'features/map/providers/address_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,8 +13,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => CartProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => AddressProvider()),
+      ],
       child: MaterialApp(
         title: 'Кофейня "Уютная"',
         theme: ThemeData(
@@ -29,7 +33,6 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
             elevation: 2,
           ),
-          // УБИРАЕМ cardTheme полностью - он не обязателен
           useMaterial3: true,
         ),
         home: const MenuScreen(),
