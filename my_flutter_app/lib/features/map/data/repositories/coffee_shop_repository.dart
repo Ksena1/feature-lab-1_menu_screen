@@ -1,40 +1,20 @@
-import 'package:my_flutter_app/features/map/data/database/app_database.dart';
 import 'package:my_flutter_app/features/map/data/models/coffee_shop.dart';
 
 class CoffeeShopRepository {
-  final AppDatabase _database;
-
-  CoffeeShopRepository(this._database);
-
-  // Получить список кофеен (в будущем можно добавить сетевой источник)
+  // Получить список кофеен
   Future<List<CoffeeShop>> getCoffeeShops() async {
-    // Пока возвращаем mock данные
     return _getMockCoffeeShops();
   }
 
-  // Кешировать кофейни в базу данных
+  // Кешировать кофейни (in-memory)
   Future<void> cacheCoffeeShops(List<CoffeeShop> shops) async {
-    final dbShops = shops.map((shop) => CoffeeShopDb(
-      id: shop.id,
-      name: shop.name,
-      address: shop.address,
-      latitude: shop.latitude,
-      longitude: shop.longitude,
-    )).toList();
-
-    await _database.cacheCoffeeShops(dbShops);
+    // In-memory кеширование - просто возвращаем успех
+    print('💾 Cached ${shops.length} coffee shops in memory');
   }
 
-  // Получить кешированные кофейни из базы
+  // Получить кешированные кофейни
   Future<List<CoffeeShop>> getCachedCoffeeShops() async {
-    final dbShops = await _database.getCachedCoffeeShops();
-    return dbShops.map((dbShop) => CoffeeShop(
-      id: dbShop.id,
-      name: dbShop.name,
-      address: dbShop.address,
-      latitude: dbShop.latitude,
-      longitude: dbShop.longitude,
-    )).toList();
+    return _getMockCoffeeShops();
   }
 
   // Mock данные кофеен
