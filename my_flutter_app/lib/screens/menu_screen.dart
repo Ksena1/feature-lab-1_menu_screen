@@ -180,7 +180,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                         const SizedBox(height: 16.0),
                       ],
-                    ),
+                    );
                   }).toList(),
                 ),
               ),
