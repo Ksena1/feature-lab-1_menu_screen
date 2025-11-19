@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:my_flutter_app/features/map/providers/address_provider.dart';
 import 'package:my_flutter_app/features/map/data/models/coffee_shop.dart';
 import 'package:my_flutter_app/features/map/data/repositories/in_memory_coffee_shop_repository.dart';
+import 'map_screen.dart';  
 
 class CoffeeShopListScreen extends StatefulWidget {
   const CoffeeShopListScreen({super.key});
